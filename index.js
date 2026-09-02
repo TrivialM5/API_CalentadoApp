@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+
 app.use(express.json());
 const PORT = 3000;
 
@@ -12,6 +13,10 @@ const productos = [
     {id: 1, restauranteId: 1, nombre: 'Bandeja Paisa', precio: 12000},
     {id: 2, restauranteId: 1, nombre: 'Sancocho', precio: 10000},
     {id: 3, restauranteId: 2, nombre: 'Arepa con queso', precio: 5000} 
+];
+
+const usuarios = [
+
 ];
 
 app.get('/', (req, res) => {
@@ -80,6 +85,45 @@ app.post('/restaurantes', (req, res) => {
     restaurantes.push(nuevoRestaurante);
     res.status(201).json(nuevoRestaurante);
 });
+
+app.post ('/usuarios', (req, res) => { //registro
+    const {nombre, correo, contrasena} = req.body;
+
+    if (!nombre || !correo || !contrasena) {
+        return res.status(400).json({ mensaje: 'Nombre, correo y contraseña son obligatorios'});
+    }
+
+    const correoExiste = usuarios.find(u => u.correo === correo);
+    if (correoExiste) {
+        return res.status(400).json({mensaje: 'Ya existe un usuario registrado con este correo'});
+    }
+
+    const nuevoUsuario = {
+        id: usuarios.length + 1,
+        nombre, 
+        correo,
+        contrasena,
+        telefono: req.body.telefono || '',
+        viveEnConjunto: req.body.viveEnConjunto || false,
+        nombreConjunto: req.body.nombreConjunto || '', 
+        torre: req.body.torre || ''
+    };
+
+    usuarios.push(nuevoUsuario);
+
+    const {contrasena: _, ...usuarioSinContrasena} = nuevoUsuario;
+    res.status(201).json(usuarioSinContrasena)
+})
+
+app.post('/usuarios/login', (req, res) => { //logeo
+    const {correo, contrasena} = req.body; 
+
+    const usuario = usuarios.find(u => u.correo === correo && u.contrasena === contrasena);
+
+    if (!usuario) {
+        return res.status(400).json({mensaje: 'Correo o contraseña incorrectos'})
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
