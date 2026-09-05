@@ -115,6 +115,7 @@ app.post ('/usuarios', (req, res) => { //registro
     res.status(201).json(usuarioSinContrasena)
 })
 
+
 app.post('/usuarios/login', (req, res) => { //logeo
     const {correo, contrasena} = req.body; 
 
@@ -123,6 +124,9 @@ app.post('/usuarios/login', (req, res) => { //logeo
     if (!usuario) {
         return res.status(400).json({mensaje: 'Correo o contraseña incorrectos'})
     }
+
+    const { contrasena: _, ...usuarioSinContrasena } = usuario;
+    res.json(usuarioSinContrasena)
 })
 
 app.listen(PORT, () => {
