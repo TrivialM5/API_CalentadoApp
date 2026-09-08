@@ -3,6 +3,8 @@ const app = express();
 
 app.use(express.json());
 const PORT = 3000;
+const cors = require('cors');
+app.use(cors());
 
 const restaurantes = [
     {id: 1, nombre: 'sabor casero', direccion: 'Calle 45 #12-30'},
