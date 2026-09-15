@@ -7,7 +7,7 @@ const cors = require('cors');
 app.use(cors());
 
 const restaurantes = [
-    {id: 1, nombre: 'sabor casero', direccion: 'Calle 45 #12-30'},
+    {id: 1, nombre: 'Sabor casero', direccion: 'Calle 45 #12-30'},
     {id: 2, nombre: 'La esquina', direccion: 'Carrera 10 #5-20'}
 ];
 
