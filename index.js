@@ -1,136 +1,146 @@
 const express = require('express');
-const app = express();
-
-app.use(express.json());
-const PORT = 3000;
 const cors = require('cors');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
+app.use(express.json());
 
 const restaurantes = [
-    {id: 1, nombre: 'Sabor casero', direccion: 'Calle 45 #12-30'},
-    {id: 2, nombre: 'La esquina', direccion: 'Carrera 10 #5-20'}
+    { id: 1, nombre: 'Hamburguesas Krusty', direccion: 'una calle', imagen: 'assets/img/krusty.png', propietarioId: null },
+    { id: 2, nombre: 'El Holandés Cocinante', direccion: 'otra calle', imagen: 'assets/img/fish.jpg', propietarioId: null },
+    { id: 3, nombre: 'Los Pollos Hermanos', direccion: 'otra calle', imagen: 'assets/img/pollo_hermano.jpg', propietarioId: null },
+    { id: 4, nombre: 'Burger Shot', direccion: 'otra calle', imagen: 'assets/img/burgershot.svg', propietarioId: null }
 ];
 
 const productos = [
-    {id: 1, restauranteId: 1, nombre: 'Bandeja Paisa', precio: 12000},
-    {id: 2, restauranteId: 1, nombre: 'Sancocho', precio: 10000},
-    {id: 3, restauranteId: 2, nombre: 'Arepa con queso', precio: 5000} 
+    { id: 1, restauranteId: 1, nombre: 'Cangreburger', precio: 12000, imagen: 'assets/img/test.png' },
+    { id: 2, restauranteId: 1, nombre: 'Papas fritas', precio: 5000, imagen: 'assets/img/test.png' },
+    { id: 3, restauranteId: 2, nombre: 'Sopa de pescado', precio: 9000, imagen: 'assets/img/test.png' },
+    { id: 4, restauranteId: 3, nombre: 'Pollo frito', precio: 11000, imagen: 'assets/img/test.png' },
+    { id: 5, restauranteId: 3, nombre: 'Combo familiar', precio: 25000, imagen: 'assets/img/test.png' },
+    { id: 6, restauranteId: 4, nombre: 'Burger doble', precio: 14000, imagen: 'assets/img/test.png' }
 ];
 
 const usuarios = [
-
+    { id: 1, nombre: 'Usuario Prueba', correo: 'prueba@correo.com', contrasena: '12345', numero: '3000000000', direccion: 'por ahi' }
 ];
 
 app.get('/', (req, res) => {
-    res.send('Alooo, La API de CalentadoApp esta camellando!')
+    res.send('Alooo, La API de CalentadoApp esta camellando!');
 });
 
 app.get('/restaurantes', (req, res) => {
     res.json(restaurantes);
-})
+});
+
+app.get('/restaurantes/propietario/:propietarioId', (req, res) => {
+    const propietarioId = parseInt(req.params.propietarioId);
+    const restaurante = restaurantes.find(r => r.propietarioId === propietarioId);
+
+    if (!restaurante) {
+        return res.status(404).json({ mensaje: 'Este usuario no tiene restaurante' });
+    }
+    res.json(restaurante);
+});
 
 app.get('/restaurantes/:id', (req, res) => {
-    const id = parseInt(req.params.id)
+    const id = parseInt(req.params.id);
     const restaurante = restaurantes.find(r => r.id === id);
 
     if (!restaurante) {
-        return res.status(404).json({ mensaje: 'Restaurante no encontrado'});
+        return res.status(404).json({ mensaje: 'Restaurante no encontrado' });
     }
-
-    res.json(restaurante)
-})
-
-app.get('/productos', (req, res) => {
-    res.json(productos);
-})
+    res.json(restaurante);
+});
 
 app.get('/restaurantes/:id/productos', (req, res) => {
     const restauranteId = parseInt(req.params.id);
     const productosDelRestaurante = productos.filter(p => p.restauranteId === restauranteId);
     res.json(productosDelRestaurante);
-})
-
-app.post('/productos', (req, res) => {
-
-    const restauranteId = req.body.restauranteId;
-    const restauranteExiste = restaurantes.find(r => r.id === restauranteId)
-
-    if (!restauranteExiste) {
-        return res.status(400).json({ mensaje: 'El restauranteId no corresponde a ningún restaurante existente'});
-    }
-
-    const nuevoProducto = {
-        id: productos.length + 1,
-        restauranteId: req.body.restauranteId, 
-        nombre: req.body.nombre,
-        precio: req.body.precio
-    };
-
-    productos.push(nuevoProducto);
-    res.status(201).json(nuevoProducto);
 });
 
 app.post('/restaurantes', (req, res) => {
-
-    const nombre = req.body.nombre;
+    const { nombre, direccion, imagen, propietarioId } = req.body;
 
     if (!nombre) {
-        return res.status(400).json({ mensaje: 'El nombre del restaurante es obligatorio'})
+        return res.status(400).json({ mensaje: 'El nombre del restaurante es obligatorio' });
     }
 
-    const nuevoRestaurante = {
-        id: restaurantes.length + 1, 
-        nombre: req.body.nombre,
-        direccion: req.body.direccion
-    }; 
+    if (propietarioId) {
+        const yaTiene = restaurantes.find(r => r.propietarioId === propietarioId);
+        if (yaTiene) {
+            return res.status(400).json({ mensaje: 'Este usuario ya tiene un restaurante' });
+        }
+    }
 
-    restaurantes.push(nuevoRestaurante);
-    res.status(201).json(nuevoRestaurante);
+    const nuevo = {
+        id: restaurantes.length + 1,
+        nombre,
+        direccion: direccion || '',
+        imagen: imagen || 'assets/img/test.png',
+        propietarioId: propietarioId || null
+    };
+
+    restaurantes.push(nuevo);
+    res.status(201).json(nuevo);
 });
 
-app.post ('/usuarios', (req, res) => { //registro
-    const {nombre, correo, contrasena} = req.body;
+app.post('/productos', (req, res) => {
+    const { restauranteId, nombre, precio, imagen } = req.body;
+
+    if (!nombre || !precio) {
+        return res.status(400).json({ mensaje: 'Nombre y precio son obligatorios' });
+    }
+
+    const restauranteExiste = restaurantes.find(r => r.id === Number(restauranteId));
+    if (!restauranteExiste) {
+        return res.status(400).json({ mensaje: 'El restaurante no existe' });
+    }
+
+    const nuevo = {
+        id: productos.length + 1,
+        restauranteId: Number(restauranteId),
+        nombre,
+        precio: Number(precio),
+        imagen: imagen || 'assets/img/test.png'
+    };
+
+    productos.push(nuevo);
+    res.status(201).json(nuevo);
+});
+
+app.post('/usuarios', (req, res) => {
+    const { nombre, correo, contrasena } = req.body;
 
     if (!nombre || !correo || !contrasena) {
-        return res.status(400).json({ mensaje: 'Nombre, correo y contraseña son obligatorios'});
+        return res.status(400).json({ mensaje: 'Nombre, correo y contraseña son obligatorios' });
     }
 
     const correoExiste = usuarios.find(u => u.correo === correo);
     if (correoExiste) {
-        return res.status(400).json({mensaje: 'Ya existe un usuario registrado con este correo'});
+        return res.status(400).json({ mensaje: 'Ya existe un usuario con este correo' });
     }
 
-    const nuevoUsuario = {
-        id: usuarios.length + 1,
-        nombre, 
-        correo,
-        contrasena,
-        telefono: req.body.telefono || '',
-        viveEnConjunto: req.body.viveEnConjunto || false,
-        nombreConjunto: req.body.nombreConjunto || '', 
-        torre: req.body.torre || ''
-    };
+    const nuevo = { ...req.body, id: usuarios.length + 1 };
+    usuarios.push(nuevo);
 
-    usuarios.push(nuevoUsuario);
+    const { contrasena: _, ...usuarioSinContrasena } = nuevo;
+    res.status(201).json(usuarioSinContrasena);
+});
 
-    const {contrasena: _, ...usuarioSinContrasena} = nuevoUsuario;
-    res.status(201).json(usuarioSinContrasena)
-})
-
-
-app.post('/usuarios/login', (req, res) => { //logeo
-    const {correo, contrasena} = req.body; 
-
+app.post('/usuarios/login', (req, res) => {
+    const { correo, contrasena } = req.body;
     const usuario = usuarios.find(u => u.correo === correo && u.contrasena === contrasena);
 
     if (!usuario) {
-        return res.status(400).json({mensaje: 'Correo o contraseña incorrectos'})
+        return res.status(401).json({ mensaje: 'Correo o contraseña incorrectos' });
     }
 
     const { contrasena: _, ...usuarioSinContrasena } = usuario;
-    res.json(usuarioSinContrasena)
-})
+    res.json(usuarioSinContrasena);
+});
 
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-})
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
