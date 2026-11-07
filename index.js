@@ -44,6 +44,12 @@ app.get('/restaurantes/propietario/:propietarioId', (req, res) => {
     res.json(restaurante);
 });
 
+app.get('/restaurantes/:id/productos', (req, res) => {
+    const restauranteId = parseInt(req.params.id);
+    const productosDelRestaurante = productos.filter(p => p.restauranteId === restauranteId);
+    res.json(productosDelRestaurante);
+});
+
 app.get('/restaurantes/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const restaurante = restaurantes.find(r => r.id === id);
@@ -52,12 +58,6 @@ app.get('/restaurantes/:id', (req, res) => {
         return res.status(404).json({ mensaje: 'Restaurante no encontrado' });
     }
     res.json(restaurante);
-});
-
-app.get('/restaurantes/:id/productos', (req, res) => {
-    const restauranteId = parseInt(req.params.id);
-    const productosDelRestaurante = productos.filter(p => p.restauranteId === restauranteId);
-    res.json(productosDelRestaurante);
 });
 
 app.post('/restaurantes', (req, res) => {
