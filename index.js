@@ -7,10 +7,16 @@ app.use(cors());
 app.use(express.json());
 
 const restaurantes = [
-    { id: 1, nombre: 'Hamburguesas Krusty', direccion: 'una calle', imagen: 'assets/img/krusty.png', propietarioId: null },
-    { id: 2, nombre: 'El Holandés Cocinante', direccion: 'otra calle', imagen: 'assets/img/fish.jpg', propietarioId: null },
-    { id: 3, nombre: 'Los Pollos Hermanos', direccion: 'otra calle', imagen: 'assets/img/pollo_hermano.jpg', propietarioId: null },
-    { id: 4, nombre: 'Burger Shot', direccion: 'otra calle', imagen: 'assets/img/burgershot.svg', propietarioId: null }
+    { id: 1, nombre: 'Hamburguesas Krusty', direccion: 'Calle 85 # 15-42, Chapinero', imagen: 'assets/img/krusty.png', propietarioId: null },
+    { id: 2, nombre: 'El Holandés Cocinante', direccion: 'Carrera 7 # 45-28, Chapinero', imagen: 'assets/img/fish.jpg', propietarioId: null },
+    { id: 3, nombre: 'Los Pollos Hermanos', direccion: 'Calle 127 # 19-36, Usaquén', imagen: 'assets/img/pollo_hermano.jpg', propietarioId: null },
+    { id: 4, nombre: 'Burger Shot', direccion: 'Carrera 68 # 26-54, Engativá', imagen: 'assets/img/burgershot.svg', propietarioId: null },
+    { id: 5, nombre: 'Pizza Planet', direccion: 'Calle 53 # 24-17, Teusaquillo', imagen: 'assets/img/pizzaplanet.png', propietarioId: null },
+    { id: 6, nombre: 'Taberna de Moe', direccion: 'Carrera 80 # 42-65 Sur, Kennedy', imagen: 'assets/img/tabernamoe.jfif', propietarioId: null },
+    { id: 7, nombre: 'Reino de las alitas', direccion: 'Calle 72 # 11-39, Barrios Unidos', imagen: 'assets/img/reinoalitas.webp', propietarioId: null },
+    { id: 8, nombre: 'Freddys Pizza', direccion: 'Carrera 30 # 8-52, Puente Aranda', imagen: 'assets/img/ffp.png', propietarioId: null },
+    { id: 9, nombre: 'Donas El mantecas', direccion: 'Calle 140 # 12-25, Usaquén', imagen: 'assets/img/mantecas.jpg', propietarioId: null },
+    { id: 10, nombre: 'Gusteaus', direccion: 'Carrera 50 # 3-71, Puente Aranda', imagen: 'assets/img/gustos.jpg', propietarioId: null },
 ];
 
 const productos = [
