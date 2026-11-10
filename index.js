@@ -20,12 +20,45 @@ const restaurantes = [
 ];
 
 const productos = [
-    { id: 1, restauranteId: 1, nombre: 'Cangreburger', precio: 12000, imagen: 'assets/img/test.png' },
-    { id: 2, restauranteId: 1, nombre: 'Papas fritas', precio: 5000, imagen: 'assets/img/test.png' },
-    { id: 3, restauranteId: 2, nombre: 'Sopa de pescado', precio: 9000, imagen: 'assets/img/test.png' },
-    { id: 4, restauranteId: 3, nombre: 'Pollo frito', precio: 11000, imagen: 'assets/img/test.png' },
-    { id: 5, restauranteId: 3, nombre: 'Combo familiar', precio: 25000, imagen: 'assets/img/test.png' },
-    { id: 6, restauranteId: 4, nombre: 'Burger doble', precio: 14000, imagen: 'assets/img/test.png' }
+    { id: 1, restauranteId: 1, nombre: 'TapaArterias', precio: 24000, imagen: 'assets/img/img01.jfif' },
+    { id: 2, restauranteId: 1, nombre: 'Ribwich', precio: 28000, imagen: 'assets/img/img02.jfif' },
+    { id: 3, restauranteId: 1, nombre: 'Doble Krusty Burger', precio: 32000, imagen: 'assets/img/img03.png' },
+
+    { id: 4, restauranteId: 2, nombre: 'Festín del Capitán', precio: 48000, imagen: 'assets/img/img04.jpg' },
+    { id: 5, restauranteId: 2, nombre: 'Sancocho de pescado', precio: 29000, imagen: 'assets/img/img05.jfif' },
+    { id: 6, restauranteId: 2, nombre: 'Bagre en salsa', precio: 35000, imagen: 'assets/img/img06.gif' },
+
+    { id: 7, restauranteId: 3, nombre: 'Pollo Original Hermanos (receta original)', precio: 26000, imagen: 'assets/img/img07.jfif' },
+    { id: 8, restauranteId: 3, nombre: 'Alitas de Albuquerque', precio: 24000, imagen: 'assets/img/img08.jfif' },
+    { id: 9, restauranteId: 3, nombre: 'Hamburguesa W.W', precio: 29000, imagen: 'assets/img/img09.jfif' },
+
+    { id: 10, restauranteId: 4, nombre: 'Bleeder Burger', precio: 22000, imagen: 'assets/img/img10.webp' },
+    { id: 11, restauranteId: 4, nombre: 'Heart Stopper Burger', precio: 36000, imagen: 'assets/img/img11.webp' },
+    { id: 12, restauranteId: 4, nombre: 'Papas Los Santos', precio: 14000, imagen: 'assets/img/img12.jfif' },
+
+    { id: 13, restauranteId: 5, nombre: 'Pizza Lightyear', precio: 39000, imagen: 'assets/img/img13.jfif' },
+    { id: 14, restauranteId: 5, nombre: 'Palitos Espaciales', precio: 15000, imagen: 'assets/img/img14.jfif' },
+    { id: 15, restauranteId: 5, nombre: 'Pizza Galáctica', precio: 34000, imagen: 'assets/img/img15.jfif' },
+
+    { id: 16, restauranteId: 6, nombre: 'Llamarada Moe', precio: 18000, imagen: 'assets/img/img16.webp' },
+    { id: 17, restauranteId: 6, nombre: 'Duff SixPack', precio: 35000, imagen: 'assets/img/img17.webp' },
+    { id: 18, restauranteId: 6, nombre: 'Huevos en Salmuera', precio: 9000, imagen: 'assets/img/img18.jfif' },
+
+    { id: 19, restauranteId: 7, nombre: 'Alitas del Reino', precio: 27000, imagen: 'assets/img/img19.jfif' },
+    { id: 20, restauranteId: 7, nombre: 'Extrahuevordinario', precio: 22000, imagen: 'assets/img/img20.jfif' },
+    { id: 21, restauranteId: 7, nombre: 'Alitas Furia', precio: 32000, imagen: 'assets/img/img21.jpg' },
+
+    { id: 22, restauranteId: 8, nombre: 'Fazbear Clásica', precio: 30000, imagen: 'assets/img/img22.jfif' },
+    { id: 23, restauranteId: 8, nombre: 'Golden Nuggets', precio: 19000, imagen: 'assets/img/img23.webp' },
+    { id: 24, restauranteId: 8, nombre: 'Night Pizza', precio: 37000, imagen: 'assets/img/img24.jfif' },
+
+    { id: 25, restauranteId: 9, nombre: 'Caja de Donas Springfield', precio: 42000, imagen: 'assets/img/img25.webp' },
+    { id: 26, restauranteId: 9, nombre: 'Dona Rosada de Homero', precio: 8000, imagen: 'assets/img/img26.jfif' },
+    { id: 27, restauranteId: 9, nombre: 'Donas Diablo', precio: 11000, imagen: 'assets/img/img27.webp' },
+
+    { id: 28, restauranteId: 10, nombre: 'Ratatouille', precio: 95000, imagen: 'assets/img/img28.jpg' },
+    { id: 29, restauranteId: 10, nombre: 'Sancocho frances', precio: 120000, imagen: 'assets/img/img29.jfif' },
+    { id: 30, restauranteId: 10, nombre: 'Boeuf Bourguignon', precio: 185000, imagen: 'assets/img/img30.jpg' },
 ];
 
 const usuarios = [
