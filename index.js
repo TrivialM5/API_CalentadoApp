@@ -117,7 +117,7 @@ app.post('/restaurantes', (req, res) => {
         id: restaurantes.length + 1,
         nombre,
         direccion: direccion || '',
-        imagen: imagen || 'assets/img/test.png',
+        imagen: imagen || 'assets/img/deff.jpg',
         propietarioId: propietarioId || null
     };
 
@@ -142,7 +142,7 @@ app.post('/productos', (req, res) => {
         restauranteId: Number(restauranteId),
         nombre,
         precio: Number(precio),
-        imagen: imagen || 'assets/img/test.png'
+        imagen: imagen || 'assets/img/deff.jpg'
     };
 
     productos.push(nuevo);
